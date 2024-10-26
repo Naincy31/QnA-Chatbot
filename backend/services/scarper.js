@@ -13,10 +13,6 @@ async function scrapeData() {
 
   const scrapedData = data.split('\n').filter(line => line.trim()); // Store paragraphs or lines as separate entries-Clean up empty lines
 
-  console.log(scrapedData);
-  
-
-  // Define the path to save the JSON file
   const filePath = path.join('backend', 'data', 'scrapedData.json');
   
   // Write scraped data to a JSON file
@@ -25,5 +21,4 @@ async function scrapeData() {
   await browser.close();
 }
 
-// Run scrapeData when server starts
 scrapeData();

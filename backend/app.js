@@ -3,7 +3,7 @@ const cors = require("cors");
 const qaRoutes = require("./routes/qaRoutes");
 const app = express();
 
-app.use(cors()); // Use CORS middleware
+app.use(cors());
 app.use(express.json());
 
 console.log("inside app.js");

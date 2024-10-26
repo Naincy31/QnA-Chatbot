@@ -1,6 +1,6 @@
 const express = require("express");
 const { getAnswer } = require("../controllers/qaController");
-const router = express.Router(); //creates new router instance for handling requests
+const router = express.Router(); 
 
 router.post("/ask", async (req, res) => {
   try {
@@ -9,7 +9,7 @@ router.post("/ask", async (req, res) => {
     if (!req.body.question) {
       return res.status(400).json({ error: "Question is required." });
     }
-    const question = req.body.question; // Get 'question' from the request body
+    const question = req.body.question; 
     const answer = await getAnswer(question); 
     res.json({ answer });
 
