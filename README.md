@@ -1,70 +1,81 @@
-# Getting Started with Create React App
+# Project Overview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a **Q&A Chatbot** built using **React** for the frontend and **Node.js** for the backend, designed to scrape website data, store it in **Elasticsearch**, and use the **BM25 search algorithm** to respond to user queries.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## **Dependencies**
 
-### `npm start`
+The following dependencies were installed for this project:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **@elastic/elasticsearch**: ^8.15.1 — Used to connect to and query Elasticsearch.
+- **axios**: ^1.7.7 — A library for making HTTP requests to APIs.
+- **cors**: ^2.8.5 — Enables cross-origin resource sharing for API calls.
+- **express**: ^4.21.1 — A web framework for setting up the backend server.
+- **fuse.js**: ^7.0.0 — Used for client-side fuzzy search as a fallback.
+- **node-cron**: ^3.0.3 — Schedules automated tasks (such as refreshing scraped data).
+- **puppeteer**: ^23.6.0 — Headless browser for scraping website data.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## **Project Setup**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Frontend Setup**:
 
-### `npm run build`
+   - The frontend was created using **Create React App**:
+     ```bash
+     npx create-react-app chat-widget
+     ```
+   - A **chat widget** component was built to provide a simple and interactive interface for users to ask questions.
+   - React **hooks** (e.g., `useState`, `useEffect`) were used to manage the chat component’s state and API calls.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Backend Setup**:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   - The backend was built using **Express** to create API endpoints for data scraping and search functionality.
+   - **Puppeteer** was used in the backend to scrape data from the specified website.
+   - **node-cron** was added to schedule daily data refreshes, so the scraped data remains up-to-date.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Data Storage in Elasticsearch**:
+   - **Elasticsearch** was installed locally on the system.
+   - The scraped data was processed and stored in **Elasticsearch** for fast and efficient querying.
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## **How It Works**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. **Scraping the Data**:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   - Using **Puppeteer**, the backend scrapes relevant information from the target website, including sections, titles, URLs, and content.
+   - The scraped data is then stored in **Elasticsearch** to create an index for efficient querying.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+2. **Querying Data with BM25**:
+   - When a user asks a question in the frontend chat widget, the backend performs a **search** on Elasticsearch using its **BM25 search algorithm**.
+   - **BM25** ranks the results based on relevance, helping the system find the most appropriate answer from the indexed data.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## **Running the Project**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1. Install the necessary dependencies in both the frontend and backend folders:
+   ```bash
+   npm install
+   ```
+2. **Run Elasticsearch** locally by starting the service on your system.
 
-### Code Splitting
+3. **Run the backend** server to initialize the Express API:
+   ```bash
+   node backend/app.js
+   ```
+4. **Start the React frontend**:
+   ```bash
+   npm start
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## **Usage**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- When the frontend chat widget is loaded, users can type questions related to the scraped website content.
+- The backend uses **Elasticsearch’s BM25 algorithm** to find the best match and returns relevant snippets from the indexed content.
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
